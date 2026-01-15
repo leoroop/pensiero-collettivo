@@ -2,38 +2,41 @@
 
 [ext_resource type="Script" uid="uid://batkx7ibq3a3a" path="res://player.gd" id="1_a202f"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_noarx"]
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_a0tk4"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_r3fl7"]
+[sub_resource type="SphereMesh" id="SphereMesh_noarx"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jka67"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_a202f"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_noarx"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 script = ExtResource("1_a202f")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
-mesh = SubResource("SphereMesh_noarx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
 shape = SubResource("SphereShape3D_a0tk4")
 
-[node name="Pavimento" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("SphereMesh_noarx")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Pavimento"]
-transform = Transform3D(706.73987, 2.8230265e-06, 0.19901676, 0.01863673, -0.10639273, 0.49825042, -0.17832038, 6.720122e-05, 788.8195, 0, 0, 0)
-mesh = SubResource("BoxMesh_r3fl7")
+[node name="SpringArm3D" type="SpringArm3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, 0.5, 0, -0.5, 0.8660254, 0, 1, 0)
+spring_length = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="Player/SpringArm3D"]
+fov = 82.34371
+
+[node name="Pavimento" type="StaticBody3D" parent="."]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, -25, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pavimento"]
-shape = SubResource("BoxShape3D_jka67")
+shape = SubResource("BoxShape3D_a202f")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.027856218, 0.32021615, -0.9469349, -0.00941581, 0.94734454, 0.32007766, 0.99956757, 4.862613e-09, 0.029404532, -3.5, 1.2721641, 0)
-fov = 82.34371
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pavimento"]
+mesh = SubResource("BoxMesh_noarx")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.118060976, 0.27451724, -0.954307, -0.6292213, 0.722787, 0.28576127, 0.76820725, 0.6342074, 0.08739912, -5, 5, 0)
